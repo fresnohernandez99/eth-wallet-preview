@@ -1,5 +1,4 @@
 package com.gocash.wallet
-
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {

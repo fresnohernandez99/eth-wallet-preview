@@ -4,15 +4,29 @@ import AndroidWalletInterface
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import com.gocash.wallet.di.AppModule
+import com.gocash.wallet.di.PreferencesModule
+import com.gocash.wallet.preferences.getDataStore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val androidWalletInterface = AndroidWalletInterface()
+
+        val preferencesModule =
+            PreferencesModule.createInstance {
+                PreferencesModule(
+                    dataStore = getDataStore(this)
+                )
+            }
+
         setContent {
-            App(androidWalletInterface)
+            App(
+                appModule = AppModule(
+                    walletInterface = androidWalletInterface,
+                    preferencesModule = preferencesModule
+                )
+            )
         }
     }
 }
