@@ -18,5 +18,9 @@
     <string name="type_a_password">Type a password</string>
     <string name="password_description">This password is used only in this app to prevent unwanted access.</string>
     <string name="name_your_account">Name your account</string>
+    <string name="what_to_do">What to do?</string>
+    <string name="what_to_do_description">Choose what your next step will be to access.</string>
+    <string name="create_account">Create account</string>
+    <string name="add_existing_account">Add existing account</string>
 
 </resources>

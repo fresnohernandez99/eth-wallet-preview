@@ -18,5 +18,9 @@
     <string name="type_a_password">Escribe una contraseña</string>
     <string name="password_description">Esta contraseña es para proteger el uso de tus activos en la aplicación.</string>
     <string name="name_your_account">Nombra tu cuenta</string>
+    <string name="what_to_do">Qué hacer ahora?</string>
+    <string name="what_to_do_description">Escoge cual será tu siguiente paso para acceder.</string>
+    <string name="create_account">Crear cuenta</string>
+    <string name="add_existing_account">Añadir cuenta existente</string>
 
 </resources>
