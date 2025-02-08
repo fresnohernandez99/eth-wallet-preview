@@ -2,6 +2,13 @@
 
 This is a Kotlin Multiplatform project aimed at showcasing a responsive user interface for both large and small screens, featuring an automatic theme and dynamic text. The project utilizes Compose for the UI and DataStore for storage on both Android and iOS.
 
+## Preview
+
+![Big Screen 1](pictures/big_1.png)
+![Big Screen 2](pictures/big_2.png)
+![Small Screen 1](pictures/small_1.jpg)
+![Small Screen 2](pictures/small_2.jpg)
+
 ## Project Structure
 
 ### `/composeApp`
