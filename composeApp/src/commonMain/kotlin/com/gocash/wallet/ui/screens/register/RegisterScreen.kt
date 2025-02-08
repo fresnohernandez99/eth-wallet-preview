@@ -3,7 +3,6 @@ package com.gocash.wallet.ui.screens.register
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -24,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.gocash.wallet.ui.screens.register.components.CheckMnemonicPhrase
+import com.gocash.wallet.ui.screens.register.components.DisplayInfo
 import com.gocash.wallet.ui.screens.register.components.GenerateMnemonicPhrase
 import com.gocash.wallet.ui.screens.register.components.SelectAccountName
 import com.gocash.wallet.ui.screens.register.components.SelectAccountPassword
@@ -43,9 +43,9 @@ fun RegisterScreen(
 ) {
     Scaffold(
         modifier = Modifier.imePadding(),
+        containerColor = MaterialTheme.colorScheme.background
     ) {
-        Surface(
-            color = MaterialTheme.colorScheme.background,
+        Column(
             modifier = Modifier.padding(it)
                 .consumeWindowInsets(it).fillMaxSize()
         ) {
@@ -58,12 +58,14 @@ fun RegisterScreen(
             }
 
             Column(
-                modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth().fillMaxHeight()
+                modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth().weight(1F)
                     .verticalScroll(
                         rememberScrollState()
                     )
             ) {
-                Surface(color = Color.Transparent, modifier = Modifier.weight(1F)) {
+                DisplayInfo(Modifier, registerFormState)
+
+                Surface(color = Color.Transparent, modifier = Modifier) {
                     AnimatedVisibility(visible = registerFormState == RegisterFormStep.ACCOUNT_NAME) {
                         SelectAccountName(
                             modifier = Modifier.fillMaxWidth()
@@ -110,16 +112,15 @@ fun RegisterScreen(
                         }
                     }
                 }
-
-                StepProgress(
-                    modifier = Modifier,
-                    currentStep = registerFormState.value
-                )
             }
+
+            StepProgress(
+                modifier = Modifier,
+                currentStep = registerFormState.value
+            )
         }
 
         LaunchedEffect(Unit) {
         }
     }
-
 }

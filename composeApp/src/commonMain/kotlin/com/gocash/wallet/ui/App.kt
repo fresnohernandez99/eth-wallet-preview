@@ -18,14 +18,16 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
-    AppTheme {
+    val windowSize = rememberWindowSizeClass()
+
+    AppTheme(
+        bigSize = windowSize == WindowSize.Expanded
+    ) {
         val navHostController = rememberNavController()
         val destinations = arrayOf(
             NavDestinations.HomeDest,
             NavDestinations.RegisterDest
         )
-
-        val windowSize = rememberWindowSizeClass()
 
         NavHost(
             modifier = Modifier.background(color = MaterialTheme.colorScheme.background)

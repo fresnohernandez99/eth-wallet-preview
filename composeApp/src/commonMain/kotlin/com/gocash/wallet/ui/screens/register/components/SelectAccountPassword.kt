@@ -30,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -38,12 +37,8 @@ import com.gocash.wallet.ui.theme.Other
 import gowallet.composeapp.generated.resources.Res
 import gowallet.composeapp.generated.resources.back
 import gowallet.composeapp.generated.resources.continue_label
-import gowallet.composeapp.generated.resources.mnemonic_phrase_description
-import gowallet.composeapp.generated.resources.name_your_account
 import gowallet.composeapp.generated.resources.password
-import gowallet.composeapp.generated.resources.password_description
 import gowallet.composeapp.generated.resources.repeat_password
-import gowallet.composeapp.generated.resources.type_a_password
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -60,17 +55,6 @@ fun SelectAccountPassword(
         val isEnabled by remember {
             derivedStateOf { password.isNotBlank() && password == passwordRepeated && password.length in 8..12 }
         }
-
-        Text(
-            text = stringResource(Res.string.type_a_password),
-            style = MaterialTheme.typography.titleSmall
-        )
-
-        Text(
-            text = stringResource(Res.string.password_description),
-            style = MaterialTheme.typography.labelLarge
-        )
-        Spacer(modifier = Modifier.height(25.dp))
 
         Text(
             stringResource(Res.string.password),

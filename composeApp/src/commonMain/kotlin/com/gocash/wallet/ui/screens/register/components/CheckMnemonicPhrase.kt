@@ -40,9 +40,7 @@ import com.gocash.wallet.wallet.generateEntropy
 import gowallet.composeapp.generated.resources.Res
 import gowallet.composeapp.generated.resources.back
 import gowallet.composeapp.generated.resources.completed
-import gowallet.composeapp.generated.resources.name_your_account
 import gowallet.composeapp.generated.resources.position
-import gowallet.composeapp.generated.resources.select_the_correct_word_from_your_list
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -78,16 +76,6 @@ fun CheckMnemonicPhrase(
                         pos9 == correctSelections[2]
             }
         }
-
-        Text(
-            text = stringResource(Res.string.name_your_account),
-            style = MaterialTheme.typography.titleSmall
-        )
-        Text(
-            text = stringResource(Res.string.select_the_correct_word_from_your_list),
-            style = MaterialTheme.typography.labelLarge
-        )
-        Spacer(Modifier.height(25.dp))
 
         Text(
             text = "${stringResource(Res.string.position)} 3",

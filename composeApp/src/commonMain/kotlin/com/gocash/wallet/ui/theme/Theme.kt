@@ -25,6 +25,7 @@ private val DarkColorScheme = darkColorScheme(
 @Composable
 fun AppTheme(
     themeSelected: Int = 0,
+    bigSize: Boolean = false,
     content: @Composable () -> Unit,
 ) {
     var isDarkTheme = false
@@ -56,7 +57,7 @@ fun AppTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = appTypography(colorScheme),
+        typography = if (bigSize) appTypographyBig(colorScheme) else appTypography(colorScheme),
         content = content
     )
 }

@@ -27,7 +27,6 @@ import com.gocash.wallet.ui.theme.Other
 import gowallet.composeapp.generated.resources.Res
 import gowallet.composeapp.generated.resources.account_name
 import gowallet.composeapp.generated.resources.continue_label
-import gowallet.composeapp.generated.resources.name_your_account
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -40,12 +39,6 @@ fun SelectAccountName(
         val isEnabled by remember {
             derivedStateOf { text.isNotBlank() }
         }
-        Text(
-            text = stringResource(Res.string.name_your_account),
-            style = MaterialTheme.typography.titleSmall
-        )
-
-        Spacer(modifier = Modifier.height(25.dp))
 
         Text(
             stringResource(Res.string.account_name),

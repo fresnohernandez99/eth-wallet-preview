@@ -1,7 +1,6 @@
 package com.gocash.wallet.ui.screens.register.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -43,10 +43,7 @@ import gowallet.composeapp.generated.resources.back
 import gowallet.composeapp.generated.resources.continue_label
 import gowallet.composeapp.generated.resources.copy_phrase
 import gowallet.composeapp.generated.resources.hide
-import gowallet.composeapp.generated.resources.mnemonic_phrase_description
-import gowallet.composeapp.generated.resources.read_more
 import gowallet.composeapp.generated.resources.show
-import gowallet.composeapp.generated.resources.this_is_important
 import gowallet.composeapp.generated.resources.wait_time
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -82,24 +79,11 @@ fun GenerateMnemonicPhrase(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(Res.string.this_is_important),
-                style = MaterialTheme.typography.titleSmall
-            )
-            Text(
-                text = stringResource(Res.string.mnemonic_phrase_description),
-                style = MaterialTheme.typography.labelLarge
-            )
-            Text(
-                modifier = Modifier.clickable { },
-                text = stringResource(Res.string.read_more),
-                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.primary)
-            )
 
             // Lista de palabras
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp).heightIn(0.dp, 600.dp)
             ) {
                 items(mnemonicPhrase.size) { index ->
                     val word = if (showWords) mnemonicPhrase[index] else "*****"
