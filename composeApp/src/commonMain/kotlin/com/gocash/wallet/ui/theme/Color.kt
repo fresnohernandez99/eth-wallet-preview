@@ -3,27 +3,19 @@ package com.gocash.wallet.ui.theme
 import androidx.compose.ui.graphics.Color
 
 object Light {
-    val primary = Color(0xFFB71C1C)
-    val secondary = Color(0xFF7f0000)
-    val surface = Color(0xFFf05545)
-    val onSurface = Color(0xFF757575)
+    val primary = Color(0xFF45d657)
+    val secondary = Color(0xFF00a152)
+    val surface = Color(0xFF33eb91)
     val background = Color.White
     val onBackground = Color(0xFF212121)
-    val tertiary = Color(0xFF8D8D8D)
-    val onTertiary = Color(0xFFE7E7E7)
-    val inversePrimary = Color(0xFFFCE0DE)
 }
 
 object Dark {
-    val primary = Color(0xFFB82F2F)
-    val secondary = Color(0xFF4e0000)
+    val primary = Color(0xFF00a152)
+    val secondary = Color(0xFF00e676)
     val surface = Color(0xFFb71c1c)
-    val onSurface = Color(0xFF494949)
     val background = Color(0xFF212121)
     val onBackground = Color(0xFFCACACA)
-    val tertiary = Color(0xFFD8D8D8)
-    val onTertiary = Color(0xFF505050)
-    val inversePrimary = Color(0xFF5F1A0F)
 }
 
 object Other {

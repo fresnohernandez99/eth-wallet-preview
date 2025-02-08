@@ -14,18 +14,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val androidWalletInterface = AndroidWalletInterface()
 
-        val preferencesModule =
-            PreferencesModule.createInstance {
-                PreferencesModule(
-                    dataStore = getDataStore(this)
-                )
-            }
-
         setContent {
             App(
                 appModule = AppModule(
                     walletInterface = androidWalletInterface,
-                    preferencesModule = preferencesModule
+                    preferencesModule = PreferencesModule(
+                        dataStore = getDataStore(this)
+                    )
                 )
             )
         }

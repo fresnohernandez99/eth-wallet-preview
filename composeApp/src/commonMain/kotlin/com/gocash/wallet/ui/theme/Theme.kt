@@ -10,24 +10,16 @@ private val LightColorScheme = lightColorScheme(
     primary = Light.primary,
     secondary = Light.secondary,
     surface = Light.surface,
-    onSurface = Light.onSurface,
     background = Light.background,
-    onBackground = Light.onBackground,
-    tertiary = Light.tertiary,
-    onTertiary = Light.onTertiary,
-    inversePrimary = Light.inversePrimary
+    onBackground = Light.onBackground
 )
 
 private val DarkColorScheme = darkColorScheme(
     primary = Dark.primary,
     secondary = Dark.secondary,
     surface = Dark.surface,
-    onSurface = Dark.onSurface,
     background = Dark.background,
-    onBackground = Dark.onBackground,
-    tertiary = Dark.tertiary,
-    onTertiary = Dark.onTertiary,
-    inversePrimary = Dark.inversePrimary
+    onBackground = Dark.onBackground
 )
 
 @Composable

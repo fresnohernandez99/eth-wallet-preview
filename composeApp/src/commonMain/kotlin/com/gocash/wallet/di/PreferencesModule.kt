@@ -2,16 +2,13 @@ package com.gocash.wallet.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.gocash.wallet.di.z17Singledi.SingletonInitializer
-import com.gocash.wallet.preferences.Z17Preferences
+import com.gocash.wallet.preferences.PreferencesRepositoryImpl
 import kotlinx.serialization.json.Json
 
 class PreferencesModule(
     dataStore: DataStore<Preferences>
 ) {
-    private val preferences: Z17Preferences = Z17Preferences(dataStore)
-
-    companion object : SingletonInitializer<PreferencesModule>("preferences")
+    private val preferences: PreferencesRepositoryImpl = PreferencesRepositoryImpl(dataStore)
 
     private val json: Json = Json
 

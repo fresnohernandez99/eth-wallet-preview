@@ -2,6 +2,9 @@ package com.gocash.wallet.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.gocash.wallet.ui.navigation.NavLinks.HOME
+import com.gocash.wallet.ui.screens.home.HomeScreen
+import com.gocash.wallet.ui.screens.home.HomeScreenBig
 
 object NavDestinations {
 
@@ -16,12 +19,12 @@ object NavDestinations {
         override val route = HOME
         override var args = emptyArray<Any?>()
         override val screen: @Composable () -> Unit = {
-            RegisterScreen(
+            HomeScreen(
                 navHostController = args[0] as NavHostController
             )
         }
         override val bigScreen: @Composable () -> Unit = {
-            RegisterScreen(
+            HomeScreenBig(
                 navHostController = args[0] as NavHostController
             )
         }
