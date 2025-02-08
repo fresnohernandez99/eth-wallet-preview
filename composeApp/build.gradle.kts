@@ -77,6 +77,8 @@ kotlin {
             implementation(libs.peekaboo.image.picker)
 
             implementation(libs.datastore.preferences.core)
+
+            implementation(libs.androidx.navigation.compose)
         }
 
         iosMain.dependencies {
