@@ -7,6 +7,16 @@
     <string name="wait_time">Tiempo restante</string>
     <string name="hide">Ocultar</string>
     <string name="show">Mostrar</string>
+    <string name="this_is_important">Esto es muy importante.</string>
+    <string name="read_more">Leer más</string>
+    <string name="mnemonic_phrase_description">Debes de guardar de forma segura esta lista de palabras en este mismo orden.</string>
     <string name="copy_phrase">Copiar frase</string>
+    <string name="check_list">Check your save</string>
+    <string name="select_the_correct_word_from_your_list">Selecciona la palabra correcta de tu lista para cada posición</string>
+    <string name="position">Posición: #</string>
+    <string name="completed">Completado</string>
+    <string name="type_a_password">Escribe una contraseña</string>
+    <string name="password_description">Esta contraseña es para proteger el uso de tus activos en la aplicación.</string>
+    <string name="name_your_account">Nombra tu cuenta</string>
 
 </resources>

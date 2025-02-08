@@ -1,6 +1,7 @@
 package com.gocash.wallet.ui.screens.register.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -42,7 +43,10 @@ import gowallet.composeapp.generated.resources.back
 import gowallet.composeapp.generated.resources.continue_label
 import gowallet.composeapp.generated.resources.copy_phrase
 import gowallet.composeapp.generated.resources.hide
+import gowallet.composeapp.generated.resources.mnemonic_phrase_description
+import gowallet.composeapp.generated.resources.read_more
 import gowallet.composeapp.generated.resources.show
+import gowallet.composeapp.generated.resources.this_is_important
 import gowallet.composeapp.generated.resources.wait_time
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -78,6 +82,20 @@ fun GenerateMnemonicPhrase(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text(
+                text = stringResource(Res.string.this_is_important),
+                style = MaterialTheme.typography.titleSmall
+            )
+            Text(
+                text = stringResource(Res.string.mnemonic_phrase_description),
+                style = MaterialTheme.typography.labelLarge
+            )
+            Text(
+                modifier = Modifier.clickable { },
+                text = stringResource(Res.string.read_more),
+                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.primary)
+            )
+
             // Lista de palabras
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
@@ -127,7 +145,7 @@ fun GenerateMnemonicPhrase(
 
                 Button(
                     onClick = {
-                        clipboard.setText(AnnotatedString(mnemonicPhrase.joinToString(" " )))
+                        clipboard.setText(AnnotatedString(mnemonicPhrase.joinToString(" ")))
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Transparent,// Color del botón

@@ -38,8 +38,12 @@ import com.gocash.wallet.ui.theme.Other
 import gowallet.composeapp.generated.resources.Res
 import gowallet.composeapp.generated.resources.back
 import gowallet.composeapp.generated.resources.continue_label
+import gowallet.composeapp.generated.resources.mnemonic_phrase_description
+import gowallet.composeapp.generated.resources.name_your_account
 import gowallet.composeapp.generated.resources.password
+import gowallet.composeapp.generated.resources.password_description
 import gowallet.composeapp.generated.resources.repeat_password
+import gowallet.composeapp.generated.resources.type_a_password
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -57,7 +61,16 @@ fun SelectAccountPassword(
             derivedStateOf { password.isNotBlank() && password == passwordRepeated && password.length in 8..12 }
         }
 
-        val clipboard = LocalClipboardManager.current
+        Text(
+            text = stringResource(Res.string.type_a_password),
+            style = MaterialTheme.typography.titleSmall
+        )
+
+        Text(
+            text = stringResource(Res.string.password_description),
+            style = MaterialTheme.typography.labelLarge
+        )
+        Spacer(modifier = Modifier.height(25.dp))
 
         Text(
             stringResource(Res.string.password),

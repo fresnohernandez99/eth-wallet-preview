@@ -7,6 +7,16 @@
     <string name="wait_time">Wait time</string>
     <string name="hide">Hide</string>
     <string name="show">Show</string>
+    <string name="this_is_important">This is very important.</string>
+    <string name="read_more">Read more</string>
+    <string name="mnemonic_phrase_description">You have to secure save this list in this precise order.</string>
     <string name="copy_phrase">Copy phrase</string>
+    <string name="check_list">Check your save</string>
+    <string name="select_the_correct_word_from_your_list">Select the correct word from your list for each positions</string>
+    <string name="position">Position: #</string>
+    <string name="completed">Completed</string>
+    <string name="type_a_password">Type a password</string>
+    <string name="password_description">This password is used only in this app to prevent unwanted access.</string>
+    <string name="name_your_account">Name your account</string>
 
 </resources>

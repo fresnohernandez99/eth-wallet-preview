@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.gocash.wallet.ui.screens.register.components.CheckMnemonicPhrase
 import com.gocash.wallet.ui.screens.register.components.GenerateMnemonicPhrase
 import com.gocash.wallet.ui.screens.register.components.SelectAccountName
 import com.gocash.wallet.ui.screens.register.components.SelectAccountPassword
@@ -32,7 +33,7 @@ enum class RegisterFormStep(val value: Int) {
     ACCOUNT_NAME(0),
     PASSPHRASE(1),
     MNEMONIC(2),
-    VALID_MNEMONIC(3)
+    CHECK_MNEMONIC(3)
 }
 
 @Composable
@@ -92,7 +93,20 @@ fun RegisterScreen(
                             }
                         ) {
                             registerFormData[RegisterFormStep.PASSPHRASE] = it.joinToString(" ")
-                            registerFormState = RegisterFormStep.VALID_MNEMONIC
+                            registerFormState = RegisterFormStep.CHECK_MNEMONIC
+                        }
+                    }
+
+                    AnimatedVisibility(visible = registerFormState == RegisterFormStep.CHECK_MNEMONIC) {
+                        CheckMnemonicPhrase(
+                            modifier = Modifier.fillMaxWidth(),
+                            currentList = registerFormData[RegisterFormStep.PASSPHRASE]?.split(" ")
+                                ?: emptyList(),
+                            onBack = {
+                                registerFormState = RegisterFormStep.MNEMONIC
+                            }
+                        ) {
+
                         }
                     }
                 }
