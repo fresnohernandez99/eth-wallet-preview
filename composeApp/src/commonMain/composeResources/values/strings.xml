@@ -1,0 +1,12 @@
+<resources>
+    <string name="account_name">Account name</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="continue_label">Continue</string>
+    <string name="back">Back</string>
+    <string name="wait_time">Wait time</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show</string>
+    <string name="copy_phrase">Copy phrase</string>
+
+</resources>

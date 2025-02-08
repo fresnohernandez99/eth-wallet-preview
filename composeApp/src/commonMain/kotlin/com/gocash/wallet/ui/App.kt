@@ -1,6 +1,7 @@
 package com.gocash.wallet.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,19 +17,19 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App(
-    appModule: AppModule
-) {
+fun App() {
     AppTheme {
         val navHostController = rememberNavController()
         val destinations = arrayOf(
-            NavDestinations.HomeDest
+            NavDestinations.HomeDest,
+            NavDestinations.RegisterDest
         )
 
         val windowSize = rememberWindowSizeClass()
 
         NavHost(
-            modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
+            modifier = Modifier.background(color = MaterialTheme.colorScheme.background)
+                .systemBarsPadding(),
             navController = navHostController,
             startDestination = destinations[0].route,
         ) {
@@ -37,10 +38,10 @@ fun App(
                 navigationComposable(route = nav.route) {
                     nav.args = arrayOf(navHostController)
 
-                    when(windowSize){
+                    when (windowSize) {
                         WindowSize.Compact -> nav.screen()
                         WindowSize.Medium -> nav.screen()
-                        WindowSize.Expanded -> nav.bigScreen()
+                        WindowSize.Expanded -> nav.bigScreen?.invoke() ?: nav.screen()
                     }
                 }
             }

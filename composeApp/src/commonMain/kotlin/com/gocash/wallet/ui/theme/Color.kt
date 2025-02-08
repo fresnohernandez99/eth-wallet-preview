@@ -13,7 +13,7 @@ object Light {
 object Dark {
     val primary = Color(0xFF00a152)
     val secondary = Color(0xFF00e676)
-    val surface = Color(0xFFb71c1c)
+    val surface = Color(0xFF33b374)
     val background = Color(0xFF212121)
     val onBackground = Color(0xFFCACACA)
 }

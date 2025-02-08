@@ -8,10 +8,12 @@ import com.gocash.wallet.ui.App
 import com.gocash.wallet.wallet.WalletInterface
 
 fun MainViewController(walletInterface: WalletInterface) = ComposeUIViewController {
-    App(
-        appModule = AppModule(
+    val appModule = AppModule.createInstance {
+        AppModule(
             walletInterface = walletInterface,
             preferencesModule = PreferencesModule(dataStore = getDataStore())
         )
-    )
+    }
+
+    App()
 }

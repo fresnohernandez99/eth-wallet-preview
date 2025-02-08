@@ -4,7 +4,7 @@ package com.gocash.wallet.wallet
 
 expect fun ByteArray.fillSecureRandom()
 
-fun generateEntropy(strength: Int = 32): ByteArray {
+fun generateEntropy(strength: Int = 16): ByteArray {
     return ByteArray(strength).apply {
         fillSecureRandom() // Implementación multiplataforma segura
     }

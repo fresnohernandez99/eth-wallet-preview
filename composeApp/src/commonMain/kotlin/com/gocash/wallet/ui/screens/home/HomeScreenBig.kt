@@ -12,7 +12,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.gocash.wallet.ui.screens.home.components.FullLoading
+import com.gocash.wallet.ui.navigation.NavLinks.REGISTER
+import com.gocash.wallet.ui.shared.FullLoading
 
 @Composable
 fun HomeScreenBig(
@@ -32,7 +33,7 @@ fun HomeScreenBig(
             }
 
             InitState.NEW_USER -> {
-                TODO()
+                navHostController.navigate(REGISTER)
             }
         }
     }

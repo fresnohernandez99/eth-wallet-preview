@@ -4,6 +4,7 @@ import com.gocash.wallet.util.Base64Util
 
 object NavLinks {
     const val HOME = "home"
+    const val REGISTER = "register"
     const val CHAT_P2P = "chat_p2p/{params}"
 
     fun encode(value: String): String {

@@ -1,4 +1,4 @@
-package com.gocash.wallet.ui.screens.home.components
+package com.gocash.wallet.ui.shared
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

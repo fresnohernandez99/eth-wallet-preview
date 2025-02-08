@@ -4,9 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
 
-
-
     fun loadInitState(onLogged: () -> Unit, onNewUser: () -> Unit) {
-
+        onNewUser()
     }
 }
