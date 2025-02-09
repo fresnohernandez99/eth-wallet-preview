@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.gocash.wallet.di.AppModule
+import androidx.navigation.navArgument
 import com.gocash.wallet.ui.navigation.NavDestinations
+import com.gocash.wallet.ui.navigation.NavLinks
 import com.gocash.wallet.ui.navigation.navigationComposable
 import com.gocash.wallet.ui.theme.AppTheme
 import com.gocash.wallet.ui.theme.WindowSize
@@ -50,27 +52,32 @@ fun App() {
             }
 
             // other destinations
-//            navigationComposable(
-//                route = NavLinks.CHAT_P2P,
-//                arguments = listOf(
-//                    navArgument("params") {
-//                        type = NavType.StringType
-//                        defaultValue = ""
-//                    }
-//                ),
-//                content = { bse ->
-//                    val dest = NavDestinations.ChatP2PDest
-//                    val params = NavLinks.decode(
-//                        (bse.arguments?.getString("params") ?: "")
-//                    )
-//
-//                    dest.args =
-//                        arrayOf(
-//                            navHostController,
-//                            params
-//                        )
-//                    dest.screen()
-//                })
+            navigationComposable(
+                route = NavLinks.GENERATING,
+                arguments = listOf(
+                    navArgument("params") {
+                        type = NavType.StringType
+                        defaultValue = ""
+                    }
+                ),
+                content = { bse ->
+                    val dest = NavDestinations.GeneratingDest
+                    val params = NavLinks.decode(
+                        (bse.arguments?.getString("params") ?: "")
+                    )
+
+                    dest.args =
+                        arrayOf(
+                            navHostController,
+                            params
+                        )
+
+                    when (windowSize) {
+                        WindowSize.Compact -> dest.screen()
+                        WindowSize.Medium -> dest.screen()
+                        WindowSize.Expanded -> dest.bigScreen.invoke()
+                    }
+                })
         }
     }
 }

@@ -2,7 +2,9 @@ package com.gocash.wallet.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.gocash.wallet.data.AccountData
 import com.gocash.wallet.preferences.PreferencesRepositoryImpl
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class PreferencesModule(
@@ -35,23 +37,23 @@ class PreferencesModule(
 //        return true
 //    }
 //
-//    /**
-//     * RootUrl
-//     */
-//    private val keyCallQuality = "KEY_CALL_QUALITY"
-//    suspend fun setCallQuality(value: CallQuality) {
-//        preferences.store(keyCallQuality, json.encodeToString(value))
-//    }
-//
-//    suspend fun getCallQuality(): CallQuality {
-//        val actualJson = preferences.retrieve(
-//            keyCallQuality,
-//            ""
-//        )
-//
-//        return if (actualJson.isBlank()) CallQuality()
-//        else json.decodeFromString(
-//            actualJson
-//        )
-//    }
+    /**
+     * AccountData
+     */
+    private val keyAccountData = "KEY_ACCOUNT_DATA"
+    suspend fun setAccountData(value: AccountData) {
+        preferences.store(keyAccountData, json.encodeToString(value))
+    }
+
+    suspend fun getAccountData(): AccountData? {
+        val actualJson = preferences.retrieve(
+            keyAccountData,
+            ""
+        )
+
+        return if (actualJson.isBlank()) null
+        else json.decodeFromString(
+            actualJson
+        )
+    }
 }

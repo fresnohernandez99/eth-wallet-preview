@@ -3,10 +3,12 @@ package com.gocash.wallet.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.gocash.wallet.ui.navigation.NavLinks.EXISTING_ACCOUNT
+import com.gocash.wallet.ui.navigation.NavLinks.GENERATING
 import com.gocash.wallet.ui.navigation.NavLinks.HOME
 import com.gocash.wallet.ui.navigation.NavLinks.REGISTER
 import com.gocash.wallet.ui.screens.existingAccount.ExistingAccountScreen
 import com.gocash.wallet.ui.screens.existingAccount.ExistingAccountScreenBig
+import com.gocash.wallet.ui.screens.generating.GeneratingScreen
 import com.gocash.wallet.ui.screens.home.HomeScreen
 import com.gocash.wallet.ui.screens.home.HomeScreenBig
 import com.gocash.wallet.ui.screens.register.RegisterScreen
@@ -66,14 +68,20 @@ object NavDestinations {
         }
     }
 
-//    object ChatP2PDest : AppDestination {
-//        override val route = CHAT_P2P
-//        override var args = emptyArray<Any?>()
-//        override val screen: @Composable () -> Unit = {
-//            ChatP2PScreen(
-//                navHostController = args[0] as NavHostController,
-//                params = args[1] as String
-//            )
-//        }
-//    }
+    object GeneratingDest : AppDestination {
+        override val route = GENERATING
+        override var args = emptyArray<Any?>()
+        override val screen: @Composable () -> Unit = {
+            GeneratingScreen(
+                navHostController = args[0] as NavHostController,
+                params = args[1] as String
+            )
+        }
+        override val bigScreen: @Composable () -> Unit = {
+            GeneratingScreen(
+                navHostController = args[0] as NavHostController,
+                params = args[1] as String
+            )
+        }
+    }
 }

@@ -26,5 +26,11 @@
     <string name="no_have_account_create">No tengo cuenta. Crear una nueva.</string>
     <string name="recovery_phrase">Frase de Recuperación</string>
     <string name="enter_mnemonic">Introduce tu frase mnemotécnica aquí.</string>
+    <string name="reading_data">Leyendo datos</string>
+    <string name="creating_keys">Creando llaves seguras</string>
+    <string name="creating_wallet">Creando billetera</string>
+    <string name="saving_data">Salvando datos</string>
+    <string name="saying_hello">Hola, estamos listos</string>
+    <string name="error_with_account">Lo sentimos, hay un error con tu información.</string>
 
 </resources>

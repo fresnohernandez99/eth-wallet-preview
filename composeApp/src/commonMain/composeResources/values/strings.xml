@@ -26,5 +26,11 @@
     <string name="no_have_account_create">I don't have an account. Create new one.</string>
     <string name="recovery_phrase">Recovery Phrase</string>
     <string name="enter_mnemonic">Enter your mnemonic phrase here.</string>
+    <string name="reading_data">Reading data</string>
+    <string name="creating_keys">Creating keys</string>
+    <string name="creating_wallet">Creating wallet</string>
+    <string name="saving_data">Saving personal data</string>
+    <string name="saying_hello">Hello and welcome</string>
+    <string name="error_with_account">Sorry, there is an error with your account information</string>
 
 </resources>

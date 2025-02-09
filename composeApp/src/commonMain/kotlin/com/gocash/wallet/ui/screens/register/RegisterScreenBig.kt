@@ -29,6 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.gocash.wallet.ui.navigation.NavLinks.HOME
+import com.gocash.wallet.ui.navigation.NavLinks.goGenerating
 import com.gocash.wallet.ui.screens.register.components.CheckMnemonicPhrase
 import com.gocash.wallet.ui.screens.register.components.DisplayInfo
 import com.gocash.wallet.ui.screens.register.components.GenerateMnemonicPhrase
@@ -112,7 +114,20 @@ fun RegisterScreenBig(
                                     registerFormState = RegisterFormStep.MNEMONIC
                                 }
                             ) {
+                                val accountName = registerFormData[RegisterFormStep.ACCOUNT_NAME]
+                                val password = registerFormData[RegisterFormStep.PASSPHRASE]
+                                val mnemonic = registerFormData[RegisterFormStep.MNEMONIC]
 
+                                if (accountName != null && password != null && mnemonic != null)
+                                    viewModel.completeAccount(
+                                        accountName = accountName,
+                                        password = password,
+                                        mnemonic = mnemonic.split(" "),
+                                        onCompleted = {
+                                            navHostController.navigate(goGenerating(it))
+                                        }
+                                    )
+                                else navHostController.navigate(HOME)
                             }
                         }
                     }

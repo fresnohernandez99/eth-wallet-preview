@@ -22,8 +22,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.gocash.wallet.ui.navigation.NavLinks.HOME
+import com.gocash.wallet.ui.navigation.NavLinks.goGenerating
 import com.gocash.wallet.ui.screens.existingAccount.components.DisplayInfo
 import com.gocash.wallet.ui.screens.existingAccount.components.EnterMnemonic
+import com.gocash.wallet.ui.screens.register.RegisterFormStep
 import com.gocash.wallet.ui.screens.register.components.SelectAccountName
 import com.gocash.wallet.ui.screens.register.components.SelectAccountPassword
 import com.gocash.wallet.ui.screens.register.components.StepProgress
@@ -99,6 +102,21 @@ fun ExistingAccountScreen(
                             }
                         ) {
                             addExistingFormData[AddExistingFormStep.PASSPHRASE] = it
+
+                            val accountName = addExistingFormData[AddExistingFormStep.ACCOUNT_NAME]
+                            val password = addExistingFormData[AddExistingFormStep.PASSPHRASE]
+                            val mnemonic = addExistingFormData[AddExistingFormStep.MNEMONIC]
+
+                            if (accountName != null && password != null && mnemonic != null)
+                                viewModel.completeAccount(
+                                    accountName = accountName,
+                                    password = password,
+                                    mnemonic = mnemonic.split(" "),
+                                    onCompleted = {
+                                        navHostController.navigate(goGenerating(it))
+                                    }
+                                )
+                            else navHostController.navigate(HOME)
                         }
                     }
                 }
