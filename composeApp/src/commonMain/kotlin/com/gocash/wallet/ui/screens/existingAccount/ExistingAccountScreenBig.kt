@@ -1,7 +1,6 @@
-package com.gocash.wallet.ui.screens.register
+package com.gocash.wallet.ui.screens.existingAccount
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,6 @@ import androidx.compose.material.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,31 +26,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.gocash.wallet.ui.screens.register.components.CheckMnemonicPhrase
-import com.gocash.wallet.ui.screens.register.components.DisplayInfo
-import com.gocash.wallet.ui.screens.register.components.GenerateMnemonicPhrase
+import com.gocash.wallet.ui.screens.existingAccount.components.DisplayInfo
+import com.gocash.wallet.ui.screens.existingAccount.components.EnterMnemonicBig
 import com.gocash.wallet.ui.screens.register.components.SelectAccountName
 import com.gocash.wallet.ui.screens.register.components.SelectAccountPassword
 import com.gocash.wallet.ui.screens.register.components.StepProgress
 
 @Composable
-fun RegisterScreenBig(
+fun ExistingAccountScreenBig(
     navHostController: NavHostController,
-    viewModel: RegisterViewModel = androidx.lifecycle.viewmodel.compose.viewModel { RegisterViewModel() },
+    viewModel: ExistingAccountViewModel = viewModel { ExistingAccountViewModel() },
 ) {
     Scaffold(
-        modifier = Modifier.imePadding(),
+        modifier = Modifier.imePadding().padding(horizontal = 16.dp),
         containerColor = MaterialTheme.colorScheme.background
     ) {
-        var registerFormState by remember {
-            mutableStateOf(RegisterFormStep.ACCOUNT_NAME)
+        var addExistingFormStep by remember {
+            mutableStateOf(AddExistingFormStep.MNEMONIC)
         }
 
-        val registerFormData = remember {
-            mutableMapOf(RegisterFormStep.ACCOUNT_NAME to "")
+        val addExistingFormData = remember {
+            mutableMapOf(AddExistingFormStep.MNEMONIC to "")
         }
-
         Row(
             modifier = Modifier.padding(it)
                 .consumeWindowInsets(it).fillMaxSize()
@@ -63,56 +60,48 @@ fun RegisterScreenBig(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Column(
-                    modifier = Modifier.padding(horizontal = 16.dp).weight(1F).widthIn(0.dp, 450.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp).weight(1F).widthIn(
+                        0.dp,
+                        if (addExistingFormStep == AddExistingFormStep.MNEMONIC) 800.dp else 450.dp
+                    )
                         .verticalScroll(
                             rememberScrollState()
                         )
                 ) {
                     Spacer(Modifier.weight(1F))
                     Surface(color = Color.Transparent, modifier = Modifier) {
-                        AnimatedVisibility(visible = registerFormState == RegisterFormStep.ACCOUNT_NAME) {
+                        AnimatedVisibility(visible = addExistingFormStep == AddExistingFormStep.MNEMONIC) {
+                            EnterMnemonicBig(
+                                modifier = Modifier,
+                                onSelected = {
+                                    addExistingFormData[AddExistingFormStep.MNEMONIC] =
+                                        it.joinToString(" ")
+                                    addExistingFormStep = AddExistingFormStep.ACCOUNT_NAME
+                                }
+                            )
+                        }
+
+                        AnimatedVisibility(visible = addExistingFormStep == AddExistingFormStep.ACCOUNT_NAME) {
                             SelectAccountName(
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth(),
+                                showBack = true,
+                                onBack = {
+                                    addExistingFormStep = AddExistingFormStep.MNEMONIC
+                                }
                             ) {
-                                registerFormData[RegisterFormStep.ACCOUNT_NAME] = it
-                                registerFormState = RegisterFormStep.PASSPHRASE
+                                addExistingFormData[AddExistingFormStep.ACCOUNT_NAME] = it
+                                addExistingFormStep = AddExistingFormStep.PASSPHRASE
                             }
                         }
 
-                        AnimatedVisibility(visible = registerFormState == RegisterFormStep.PASSPHRASE) {
+                        AnimatedVisibility(visible = addExistingFormStep == AddExistingFormStep.PASSPHRASE) {
                             SelectAccountPassword(
                                 modifier = Modifier.fillMaxWidth(),
                                 onBack = {
-                                    registerFormState = RegisterFormStep.ACCOUNT_NAME
+                                    addExistingFormStep = AddExistingFormStep.ACCOUNT_NAME
                                 }
                             ) {
-                                registerFormData[RegisterFormStep.PASSPHRASE] = it
-                                registerFormState = RegisterFormStep.MNEMONIC
-                            }
-                        }
-
-                        AnimatedVisibility(visible = registerFormState == RegisterFormStep.MNEMONIC) {
-                            GenerateMnemonicPhrase(
-                                modifier = Modifier.fillMaxWidth(),
-                                onBack = {
-                                    registerFormState = RegisterFormStep.PASSPHRASE
-                                }
-                            ) {
-                                registerFormData[RegisterFormStep.PASSPHRASE] = it.joinToString(" ")
-                                registerFormState = RegisterFormStep.CHECK_MNEMONIC
-                            }
-                        }
-
-                        AnimatedVisibility(visible = registerFormState == RegisterFormStep.CHECK_MNEMONIC) {
-                            CheckMnemonicPhrase(
-                                modifier = Modifier.fillMaxWidth(),
-                                currentList = registerFormData[RegisterFormStep.PASSPHRASE]?.split(" ")
-                                    ?: emptyList(),
-                                onBack = {
-                                    registerFormState = RegisterFormStep.MNEMONIC
-                                }
-                            ) {
-
+                                addExistingFormData[AddExistingFormStep.PASSPHRASE] = it
                             }
                         }
                     }
@@ -121,23 +110,27 @@ fun RegisterScreenBig(
             }
 
             // RIGHT
+            // RIGHT
             Column(
-                modifier = Modifier.fillMaxHeight().weight(1F).padding(start = 25.dp, end = 50.dp),
+                modifier = Modifier.fillMaxHeight()
+                    .weight(
+                        if (addExistingFormStep == AddExistingFormStep.MNEMONIC) 0.5F else 1F
+                    )
+                    .padding(start = 25.dp, end = 50.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                DisplayInfo(Modifier, registerFormState)
+
+                DisplayInfo(Modifier, addExistingFormStep) {
+                    // go to more info
+                }
 
                 StepProgress(
                     modifier = Modifier,
-                    currentStep = registerFormState.value
+                    currentStep = addExistingFormStep.value,
+                    count = 3
                 )
             }
-        }
-
-
-
-        LaunchedEffect(Unit) {
         }
     }
 }

@@ -32,7 +32,10 @@ fun DisplayInfo(
     registerFormStep: RegisterFormStep
 ) {
     Column(modifier.fillMaxWidth()) {
-        Z17BasePicture(modifier = Modifier.size(200.dp).align(alignment = Alignment.CenterHorizontally), source = Res.drawable.go_cash_banner)
+        Z17BasePicture(
+            modifier = Modifier.size(200.dp).align(alignment = Alignment.CenterHorizontally),
+            source = Res.drawable.go_cash_banner
+        )
 
         Text(
             text = when (registerFormStep) {
@@ -52,14 +55,14 @@ fun DisplayInfo(
             },
             style = MaterialTheme.typography.labelLarge
         )
+
+        if (registerFormStep == RegisterFormStep.MNEMONIC)
+            Text(
+                modifier = Modifier.clickable { },
+                text = stringResource(Res.string.read_more),
+                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.secondary)
+            )
+
+        Spacer(modifier = Modifier.height(25.dp))
     }
-
-    if (registerFormStep == RegisterFormStep.MNEMONIC)
-        Text(
-            modifier = Modifier.clickable { },
-            text = stringResource(Res.string.read_more),
-            style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.primary)
-        )
-
-    Spacer(modifier = Modifier.height(25.dp))
 }

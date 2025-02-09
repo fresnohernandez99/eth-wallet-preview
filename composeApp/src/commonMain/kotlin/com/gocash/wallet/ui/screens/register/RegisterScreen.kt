@@ -119,8 +119,5 @@ fun RegisterScreen(
                 currentStep = registerFormState.value
             )
         }
-
-        LaunchedEffect(Unit) {
-        }
     }
 }

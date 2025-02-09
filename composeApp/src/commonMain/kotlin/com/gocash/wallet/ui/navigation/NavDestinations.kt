@@ -2,8 +2,11 @@ package com.gocash.wallet.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.gocash.wallet.ui.navigation.NavLinks.EXISTING_ACCOUNT
 import com.gocash.wallet.ui.navigation.NavLinks.HOME
 import com.gocash.wallet.ui.navigation.NavLinks.REGISTER
+import com.gocash.wallet.ui.screens.existingAccount.ExistingAccountScreen
+import com.gocash.wallet.ui.screens.existingAccount.ExistingAccountScreenBig
 import com.gocash.wallet.ui.screens.home.HomeScreen
 import com.gocash.wallet.ui.screens.home.HomeScreenBig
 import com.gocash.wallet.ui.screens.register.RegisterScreen
@@ -43,6 +46,21 @@ object NavDestinations {
         }
         override val bigScreen: @Composable () -> Unit = {
             RegisterScreenBig(
+                navHostController = args[0] as NavHostController
+            )
+        }
+    }
+
+    object ExistingAccountDest : AppDestination {
+        override val route = EXISTING_ACCOUNT
+        override var args = emptyArray<Any?>()
+        override val screen: @Composable () -> Unit = {
+            ExistingAccountScreen(
+                navHostController = args[0] as NavHostController
+            )
+        }
+        override val bigScreen: @Composable () -> Unit = {
+            ExistingAccountScreenBig(
                 navHostController = args[0] as NavHostController
             )
         }

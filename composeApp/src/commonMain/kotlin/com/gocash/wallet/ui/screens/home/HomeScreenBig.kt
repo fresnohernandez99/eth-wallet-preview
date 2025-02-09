@@ -50,12 +50,12 @@ fun HomeScreenBig(
                 }
             }
         }
-    }
 
-    LaunchedEffect(Unit) {
-        viewModel.loadInitState(
-            onLogged = { initState = InitState.LOGGED },
-            onNewUser = { initState = InitState.NEW_USER }
-        )
+        LaunchedEffect(Unit) {
+            viewModel.loadInitState(
+                onLogged = { initState = InitState.LOGGED },
+                onNewUser = { initState = InitState.NEW_USER }
+            )
+        }
     }
 }

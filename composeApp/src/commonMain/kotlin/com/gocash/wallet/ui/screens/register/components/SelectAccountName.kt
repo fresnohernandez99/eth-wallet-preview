@@ -1,5 +1,6 @@
 package com.gocash.wallet.ui.screens.register.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,10 +8,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -26,12 +29,15 @@ import androidx.compose.ui.unit.dp
 import com.gocash.wallet.ui.theme.Other
 import gowallet.composeapp.generated.resources.Res
 import gowallet.composeapp.generated.resources.account_name
+import gowallet.composeapp.generated.resources.back
 import gowallet.composeapp.generated.resources.continue_label
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SelectAccountName(
     modifier: Modifier = Modifier,
+    showBack: Boolean = false,
+    onBack: () -> Unit = {},
     onSelected: (String) -> Unit
 ) {
     Column(modifier) {
@@ -64,8 +70,34 @@ fun SelectAccountName(
         Spacer(modifier = Modifier.height(25.dp))
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            if (showBack) {
+                OutlinedButton(
+                    modifier = Modifier.weight(1F),
+                    contentPadding = PaddingValues(vertical = 16.dp, horizontal = 30.dp),
+                    onClick = {
+                        onBack()
+                    },
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = Color.Transparent, // Fondo transparente
+                        disabledContainerColor = Other.grey.copy(alpha = 0.6F) // Color de fondo deshabilitado
+                    ),
+                    border = BorderStroke(
+                        1.dp,
+                        MaterialTheme.colorScheme.onBackground
+                    ), // Borde del botón
+                    shape = RoundedCornerShape(50) // Bordes redondos al 50%
+                ) {
+                    Text(
+                        stringResource(Res.string.back),
+                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground) // Color del texto
+                    ) // Texto del botón
+                }
+
+                Spacer(Modifier.weight(0.1F).width(10.dp))
+            }
+
             Button(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.weight(1F),
                 enabled = isEnabled,
                 contentPadding = PaddingValues(vertical = 16.dp, horizontal = 30.dp),
                 onClick = {

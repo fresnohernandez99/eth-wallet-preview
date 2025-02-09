@@ -22,5 +22,9 @@
     <string name="what_to_do_description">Choose what your next step will be to access.</string>
     <string name="create_account">Create account</string>
     <string name="add_existing_account">Add existing account</string>
+    <string name="word">Word: #</string>
+    <string name="no_have_account_create">I don't have an account. Create new one.</string>
+    <string name="recovery_phrase">Recovery Phrase</string>
+    <string name="enter_mnemonic">Enter your mnemonic phrase here.</string>
 
 </resources>

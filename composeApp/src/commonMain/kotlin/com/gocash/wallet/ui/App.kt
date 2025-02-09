@@ -26,7 +26,8 @@ fun App() {
         val navHostController = rememberNavController()
         val destinations = arrayOf(
             NavDestinations.HomeDest,
-            NavDestinations.RegisterDest
+            NavDestinations.RegisterDest,
+            NavDestinations.ExistingAccountDest
         )
 
         NavHost(

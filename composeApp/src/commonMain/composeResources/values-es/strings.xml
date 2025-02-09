@@ -22,5 +22,9 @@
     <string name="what_to_do_description">Escoge cual será tu siguiente paso para acceder.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="add_existing_account">Añadir cuenta existente</string>
+    <string name="word">Palabra: #</string>
+    <string name="no_have_account_create">No tengo cuenta. Crear una nueva.</string>
+    <string name="recovery_phrase">Frase de Recuperación</string>
+    <string name="enter_mnemonic">Introduce tu frase mnemotécnica aquí.</string>
 
 </resources>

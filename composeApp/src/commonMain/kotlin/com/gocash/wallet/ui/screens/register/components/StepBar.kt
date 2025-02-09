@@ -28,9 +28,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun StepProgress(
     modifier: Modifier = Modifier,
-    currentStep: Int
+    currentStep: Int,
+    count: Int = 4
 ) {
-    val steps = listOf(0, 1, 2, 3)
     val progressColor = MaterialTheme.colorScheme.secondary
     val stepSize = 48.dp
 
@@ -41,14 +41,14 @@ fun StepProgress(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        steps.forEachIndexed { index, step ->
+        repeat(count) { index ->
             StepNumber(
-                number = (step + 1),
-                isActive = currentStep >= step,
+                number = (index + 1),
+                isActive = currentStep >= index,
                 size = stepSize
             )
 
-            if (index < steps.lastIndex) {
+            if (index < (count - 1)) {
                 StepProgressBar(
                     currentStep = currentStep,
                     targetStep = index,

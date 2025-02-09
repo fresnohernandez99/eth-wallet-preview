@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.gocash.wallet.ui.navigation.NavLinks.EXISTING_ACCOUNT
 import com.gocash.wallet.ui.navigation.NavLinks.REGISTER
 import com.gocash.wallet.ui.shared.picture.Z17BasePicture
 import com.gocash.wallet.ui.theme.Other
@@ -84,7 +85,7 @@ fun SelectFirstAction(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 30.dp),
             onClick = {
-                onSelected(REGISTER)
+                onSelected(EXISTING_ACCOUNT)
             },
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = Color.Transparent, // Fondo transparente
