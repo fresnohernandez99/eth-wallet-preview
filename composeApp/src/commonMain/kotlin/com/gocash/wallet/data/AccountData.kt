@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @Immutable
-class AccountData(
+data class AccountData(
     val accountName: String,
     val password: String,
     val privateKeyHex: String,

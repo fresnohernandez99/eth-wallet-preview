@@ -41,6 +41,7 @@ import gowallet.composeapp.generated.resources.Res
 import gowallet.composeapp.generated.resources.forgot_my_password
 import gowallet.composeapp.generated.resources.go_cash_banner
 import gowallet.composeapp.generated.resources.insert_current_password
+import gowallet.composeapp.generated.resources.lock
 import gowallet.composeapp.generated.resources.password
 import gowallet.composeapp.generated.resources.verify
 import gowallet.composeapp.generated.resources.verifying
@@ -58,10 +59,10 @@ fun PasswordRequest(
         derivedStateOf { password.isNotBlank() && password.length in 8..12 }
     }
 
-    Column(modifier.padding(16.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Center) {
+    Column(modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Center) {
         Z17BasePicture(
             modifier = Modifier.size(150.dp).align(alignment = Alignment.CenterHorizontally),
-            source = Res.drawable.go_cash_banner
+            source = Res.drawable.lock
         )
 
         Text(

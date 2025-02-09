@@ -5,6 +5,7 @@ import com.gocash.wallet.di.z17Singledi.SingletonInitializer
 import com.gocash.wallet.ui.shared.picture.Z17BasePictureHeaders
 import com.gocash.wallet.util.Gson
 import com.gocash.wallet.wallet.WalletInterface
+import kotlinx.datetime.Clock
 
 class AppModule(
     val walletInterface: WalletInterface,
@@ -30,5 +31,22 @@ class AppModule(
                 publicAddress = publicAddress
             )
         }
+    }
+
+    suspend fun checkPassword(possiblePassword: String): Boolean {
+        val account = preferencesModule.getAccountData()
+
+        if (possiblePassword == account?.password) {
+            preferencesModule.setAccountData(
+                account.copy(
+                    lastLogin = Clock.System.now().toEpochMilliseconds()
+                )
+            )
+
+            return true
+        } else {
+            return false
+        }
+
     }
 }

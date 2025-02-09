@@ -12,15 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.gocash.wallet.ui.screens.home.components.HomeDashboardBig
+import com.gocash.wallet.ui.screens.home.components.PasswordError
 import com.gocash.wallet.ui.screens.home.components.PasswordRequest
 import com.gocash.wallet.ui.screens.home.components.SelectFirstAction
 import com.gocash.wallet.ui.shared.FullLoading
@@ -30,7 +28,7 @@ fun HomeScreenBig(
     navHostController: NavHostController,
     viewModel: HomeViewModel = viewModel { HomeViewModel() },
 ) {
-    var initState by remember { mutableStateOf(InitState.LOADING) }
+    val homeState by viewModel.homeState.collectAsState()
     val accountData by viewModel.appModule.preferencesModule.getAccountDataFlow()
         .collectAsState(null)
 
@@ -38,34 +36,49 @@ fun HomeScreenBig(
         color = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxSize().imePadding()
     ) {
-        when (initState) {
-            InitState.LOADING -> {
+        when (homeState) {
+            HomeState.LOADING -> {
                 FullLoading()
             }
 
-            InitState.REQUEST_PASSWORD -> {
+            HomeState.REQUEST_PASSWORD -> {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Box(Modifier.widthIn(0.dp, 450.dp)) {
+                    Box(Modifier.widthIn(0.dp, 450.dp).padding(16.dp)) {
                         PasswordRequest(
                             Modifier.fillMaxWidth(),
                             onNavigate = {
                                 navHostController.navigate(it)
                             },
-                            onCheckPassword = {
-
-                            })
+                            onCheckPassword = viewModel::validatePassword
+                        )
                     }
                 }
             }
 
-            InitState.PASSWORD_ERROR -> {}
+            HomeState.PASSWORD_ERROR -> Box(
+                Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(Modifier.widthIn(0.dp, 450.dp).padding(16.dp)) {
+                    PasswordError(
+                        modifier = Modifier.fillMaxWidth(),
+                        onNavigate = {
+                            navHostController.navigate(it)
+                        },
+                        onSelect = {
+                            if (it == 1) viewModel.tryPasswordAgain()
+                        }
 
-            InitState.LOGGED -> HomeDashboardBig(
+                    )
+                }
+            }
+
+            HomeState.LOGGED -> HomeDashboardBig(
                 Modifier.fillMaxSize(),
                 accountName = accountData?.accountName ?: ""
             )
 
-            InitState.NEW_USER -> {
+            HomeState.NEW_USER -> {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     SelectFirstAction(
                         modifier = Modifier.padding(16.dp).widthIn(0.dp, 450.dp),
@@ -78,11 +91,7 @@ fun HomeScreenBig(
         }
 
         LaunchedEffect(Unit) {
-            viewModel.loadInitState(
-                onLogged = { initState = InitState.LOGGED },
-                onNewUser = { initState = InitState.NEW_USER },
-                onPasswordIsRequired = { initState = InitState.REQUEST_PASSWORD }
-            )
+            viewModel.loadInitState()
         }
     }
 }

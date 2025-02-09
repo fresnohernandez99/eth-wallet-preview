@@ -41,5 +41,8 @@
     <string name="insert_current_password">Inserta tu contraseña</string>
     <string name="verify">Verificar</string>
     <string name="forgot_my_password">Olvidé mi contraseña</string>
+    <string name="ups_problem">Ups, hay un problema</string>
+    <string name="your_password_was_wrong">La contraseña fue incorrecta</string>
+    <string name="try_again">Intentar de nuevo</string>
 
 </resources>

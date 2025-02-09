@@ -5,19 +5,19 @@ import androidx.lifecycle.viewModelScope
 import com.gocash.wallet.di.AppModule
 import com.gocash.wallet.util.launchWithContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
 class HomeViewModel : ViewModel() {
-
     val appModule = AppModule.getInstance()
 
-    fun loadInitState(
-        onLogged: () -> Unit,
-        onNewUser: () -> Unit,
-        onPasswordIsRequired: () -> Unit
-    ) {
+    private val _homeState = MutableStateFlow(HomeState.LOADING)
+    val homeState = _homeState.asStateFlow()
+
+    fun loadInitState() {
         viewModelScope.launchWithContext {
             val existingData = appModule.preferencesModule.getAccountData()
 
@@ -28,13 +28,13 @@ class HomeViewModel : ViewModel() {
                 // pasaron 5 min desde la ultima vez requerir contraseña de nevo
                 if (hasFiveMinutesPassed(existingData.lastLogin)) {
                     viewModelScope.launch(Dispatchers.Main) {
-                        onPasswordIsRequired()
+                        _homeState.value = HomeState.REQUEST_PASSWORD
                     }
                 }
                 // usuario listo
                 else {
                     viewModelScope.launch(Dispatchers.Main) {
-                        onLogged()
+                        _homeState.value = HomeState.LOGGED
                     }
                 }
 
@@ -42,16 +42,31 @@ class HomeViewModel : ViewModel() {
             // es usuario sin cuenta aún
             else {
                 viewModelScope.launch(Dispatchers.Main) {
-                    onNewUser()
+                    _homeState.value = HomeState.NEW_USER
                 }
             }
         }
     }
 
-    fun hasFiveMinutesPassed(lastLogin: Long): Boolean {
+    private fun hasFiveMinutesPassed(lastLogin: Long): Boolean {
         val lastLoginInstant = Instant.fromEpochMilliseconds(lastLogin)
         val currentInstant = Clock.System.now()
         val difference = currentInstant - lastLoginInstant
         return difference.inWholeMinutes >= 5
+    }
+
+    fun validatePassword(possiblePassword: String) {
+        viewModelScope.launchWithContext {
+            val check = appModule.checkPassword(possiblePassword)
+
+            if (check) {
+                _homeState.value = HomeState.LOGGED
+            } else
+                _homeState.value = HomeState.PASSWORD_ERROR
+        }
+    }
+
+    fun tryPasswordAgain() {
+        _homeState.value = HomeState.REQUEST_PASSWORD
     }
 }
