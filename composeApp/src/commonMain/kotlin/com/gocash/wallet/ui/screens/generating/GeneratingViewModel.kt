@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.gocash.wallet.data.AccountData
 import com.gocash.wallet.di.AppModule
 import com.gocash.wallet.util.launchWithContext
+import io.ktor.util.Digest
+import io.ktor.util.build
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,16 +30,18 @@ class GeneratingViewModel : ViewModel() {
                 val (privateKey, publicKey) = appModule.walletInterface.deriveKeyFromMnemonic(
                     generatingParams.mnemonic
                 )
-                
+
                 delay(1500)
                 _state.value = ProcessState.CREATING_WALLET
-
-                appModule.preferencesModule.setAccountData(AccountData(
-                    accountName = generatingParams.accountName,
-                    password = generatingParams.password,
-                    privateKeyHex = privateKey.toHexString(),
-                    lastLogin = Clock.System.now().toEpochMilliseconds()
-                ))
+                // TODO HASH PASSWORD FOR SAVING
+                appModule.preferencesModule.setAccountData(
+                    AccountData(
+                        accountName = generatingParams.accountName,
+                        password = generatingParams.password,
+                        privateKeyHex = privateKey.toHexString(),
+                        lastLogin = Clock.System.now().toEpochMilliseconds()
+                    )
+                )
 
                 delay(1000)
                 _state.value = ProcessState.SAVING_DATA

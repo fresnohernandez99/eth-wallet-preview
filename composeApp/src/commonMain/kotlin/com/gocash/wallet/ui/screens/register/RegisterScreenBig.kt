@@ -100,7 +100,7 @@ fun RegisterScreenBig(
                                     registerFormState = RegisterFormStep.PASSPHRASE
                                 }
                             ) {
-                                registerFormData[RegisterFormStep.PASSPHRASE] = it.joinToString(" ")
+                                registerFormData[RegisterFormStep.MNEMONIC] = it.joinToString(" ")
                                 registerFormState = RegisterFormStep.CHECK_MNEMONIC
                             }
                         }
@@ -108,7 +108,7 @@ fun RegisterScreenBig(
                         AnimatedVisibility(visible = registerFormState == RegisterFormStep.CHECK_MNEMONIC) {
                             CheckMnemonicPhrase(
                                 modifier = Modifier.fillMaxWidth(),
-                                currentList = registerFormData[RegisterFormStep.PASSPHRASE]?.split(" ")
+                                currentList = registerFormData[RegisterFormStep.MNEMONIC]?.split(" ")
                                     ?: emptyList(),
                                 onBack = {
                                     registerFormState = RegisterFormStep.MNEMONIC

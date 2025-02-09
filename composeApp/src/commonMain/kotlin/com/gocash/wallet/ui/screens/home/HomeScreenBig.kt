@@ -47,7 +47,10 @@ fun HomeScreenBig(
                 }
             }
 
-            InitState.LOGGED -> HomeDashboardBig(Modifier.fillMaxSize())
+            InitState.LOGGED -> HomeDashboardBig(
+                Modifier.fillMaxSize(),
+                accountName = accountData?.accountName ?: ""
+            )
 
             InitState.NEW_USER -> {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
