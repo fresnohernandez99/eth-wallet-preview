@@ -7,6 +7,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.gocash.wallet.ui.screens.home.components.HomeDashboard
+import com.gocash.wallet.ui.screens.home.components.PasswordRequest
 import com.gocash.wallet.ui.screens.home.components.SelectFirstAction
 import com.gocash.wallet.ui.shared.FullLoading
 
@@ -31,6 +34,8 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel { HomeViewModel() },
 ) {
     var initState by remember { mutableStateOf(InitState.LOADING) }
+    val accountData by viewModel.appModule.preferencesModule.getAccountDataFlow()
+        .collectAsState(null)
 
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
         when (initState) {
@@ -38,11 +43,12 @@ fun HomeScreen(
                 FullLoading()
             }
 
-            InitState.REQUEST_PASSWORD -> TODO()
+            InitState.REQUEST_PASSWORD -> PasswordRequest(Modifier.fillMaxWidth())
 
-            InitState.LOGGED -> {
-                TODO()
-            }
+            InitState.LOGGED -> HomeDashboard(
+                modifier = Modifier.fillMaxSize(),
+                accountName = accountData?.accountName ?: ""
+            )
 
             InitState.NEW_USER -> {
                 SelectFirstAction(
@@ -57,7 +63,8 @@ fun HomeScreen(
         LaunchedEffect(Unit) {
             viewModel.loadInitState(
                 onLogged = { initState = InitState.LOGGED },
-                onNewUser = { initState = InitState.NEW_USER }
+                onNewUser = { initState = InitState.NEW_USER },
+                onPasswordIsRequired = { initState = InitState.REQUEST_PASSWORD }
             )
         }
     }

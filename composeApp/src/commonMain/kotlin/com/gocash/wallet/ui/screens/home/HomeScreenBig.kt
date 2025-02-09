@@ -2,12 +2,14 @@ package com.gocash.wallet.ui.screens.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.gocash.wallet.ui.screens.home.components.HomeDashboardBig
+import com.gocash.wallet.ui.screens.home.components.PasswordRequest
 import com.gocash.wallet.ui.screens.home.components.SelectFirstAction
 import com.gocash.wallet.ui.shared.FullLoading
 
@@ -26,6 +30,8 @@ fun HomeScreenBig(
     viewModel: HomeViewModel = viewModel { HomeViewModel() },
 ) {
     var initState by remember { mutableStateOf(InitState.LOADING) }
+    val accountData by viewModel.appModule.preferencesModule.getAccountDataFlow()
+        .collectAsState(null)
 
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
         when (initState) {
@@ -33,11 +39,15 @@ fun HomeScreenBig(
                 FullLoading()
             }
 
-            InitState.REQUEST_PASSWORD -> TODO()
-
-            InitState.LOGGED -> {
-                TODO()
+            InitState.REQUEST_PASSWORD -> {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Box(Modifier.widthIn(0.dp, 450.dp)) {
+                        PasswordRequest(Modifier.fillMaxWidth())
+                    }
+                }
             }
+
+            InitState.LOGGED -> HomeDashboardBig(Modifier.fillMaxSize())
 
             InitState.NEW_USER -> {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -54,7 +64,8 @@ fun HomeScreenBig(
         LaunchedEffect(Unit) {
             viewModel.loadInitState(
                 onLogged = { initState = InitState.LOGGED },
-                onNewUser = { initState = InitState.NEW_USER }
+                onNewUser = { initState = InitState.NEW_USER },
+                onPasswordIsRequired = { initState = InitState.REQUEST_PASSWORD }
             )
         }
     }

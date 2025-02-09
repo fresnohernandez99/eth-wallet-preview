@@ -8,5 +8,6 @@ import kotlinx.serialization.Serializable
 class AccountData(
     val accountName: String,
     val password: String,
-    val privateKeyHex: String
+    val privateKeyHex: String,
+    val lastLogin: Long = 0L
 )

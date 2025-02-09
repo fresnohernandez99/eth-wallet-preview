@@ -8,6 +8,7 @@ import com.gocash.wallet.util.launchWithContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.datetime.Clock
 
 class GeneratingViewModel : ViewModel() {
 
@@ -34,7 +35,8 @@ class GeneratingViewModel : ViewModel() {
                 appModule.preferencesModule.setAccountData(AccountData(
                     accountName = generatingParams.accountName,
                     password = generatingParams.password,
-                    privateKeyHex = privateKey.toHexString()
+                    privateKeyHex = privateKey.toHexString(),
+                    lastLogin = Clock.System.now().toEpochMilliseconds()
                 ))
 
                 delay(1000)

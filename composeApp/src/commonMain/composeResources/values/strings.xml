@@ -32,5 +32,10 @@
     <string name="saving_data">Saving personal data</string>
     <string name="saying_hello">Hello and welcome</string>
     <string name="error_with_account">Sorry, there is an error with your account information</string>
+    <string name="add_founds">Add founds</string>
+    <string name="account">Account</string>
+    <string name="transactions">Transactions</string>
+    <string name="send">Send</string>
+    <string name="receive">Receive</string>
 
 </resources>

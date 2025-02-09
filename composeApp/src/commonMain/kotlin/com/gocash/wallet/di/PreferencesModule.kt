@@ -4,6 +4,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.gocash.wallet.data.AccountData
 import com.gocash.wallet.preferences.PreferencesRepositoryImpl
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -13,8 +15,6 @@ class PreferencesModule(
     private val preferences: PreferencesRepositoryImpl = PreferencesRepositoryImpl(dataStore)
 
     private val json: Json = Json
-
-    private val KEY_OWNER = "owner"
 
 
     /**
@@ -55,5 +55,14 @@ class PreferencesModule(
         else json.decodeFromString(
             actualJson
         )
+    }
+
+    fun getAccountDataFlow(): Flow<AccountData?> {
+        return preferences.flowValueOf(keyAccountData, "").map { value ->
+            if (value.isBlank()) null
+            else json.decodeFromString(
+                value
+            )
+        }
     }
 }
