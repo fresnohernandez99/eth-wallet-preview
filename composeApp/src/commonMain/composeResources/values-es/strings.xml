@@ -37,5 +37,9 @@
     <string name="transactions">Transacciones</string>
     <string name="send">Enviar</string>
     <string name="receive">Recibir</string>
+    <string name="verifying">Verificando</string>
+    <string name="insert_current_password">Inserta tu contraseña</string>
+    <string name="verify">Verificar</string>
+    <string name="forgot_my_password">Olvidé mi contraseña</string>
 
 </resources>

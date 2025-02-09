@@ -60,7 +60,7 @@ fun DisplayInfo(
             Text(
                 modifier = Modifier.clickable { },
                 text = stringResource(Res.string.read_more),
-                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.secondary)
+                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary)
             )
 
         Spacer(modifier = Modifier.height(25.dp))

@@ -140,7 +140,7 @@ fun ExistingAccountScreenBig(
             ) {
 
                 DisplayInfo(Modifier, addExistingFormStep) {
-                    // go to more info
+                    navHostController.navigate(it)
                 }
 
                 StepProgress(

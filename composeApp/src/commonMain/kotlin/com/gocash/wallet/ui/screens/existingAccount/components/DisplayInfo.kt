@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.gocash.wallet.ui.navigation.NavLinks.HOME
 import com.gocash.wallet.ui.screens.existingAccount.AddExistingFormStep
 import com.gocash.wallet.ui.shared.picture.Z17BasePicture
 import gowallet.composeapp.generated.resources.Res
@@ -26,7 +27,7 @@ import org.jetbrains.compose.resources.stringResource
 fun DisplayInfo(
     modifier: Modifier = Modifier,
     state: AddExistingFormStep,
-    onSelected: (String) -> Unit
+    onNavigate: (String) -> Unit
 ) {
     Column(
         modifier
@@ -55,9 +56,11 @@ fun DisplayInfo(
 
         if (state == AddExistingFormStep.MNEMONIC)
             Text(
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    onNavigate(HOME)
+                },
                 text = stringResource(Res.string.no_have_account_create),
-                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.secondary)
+                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary)
             )
 
         Spacer(modifier = Modifier.height(25.dp))

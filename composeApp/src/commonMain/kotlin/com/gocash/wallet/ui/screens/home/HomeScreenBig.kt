@@ -3,6 +3,7 @@ package com.gocash.wallet.ui.screens.home
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Surface
@@ -33,7 +34,10 @@ fun HomeScreenBig(
     val accountData by viewModel.appModule.preferencesModule.getAccountDataFlow()
         .collectAsState(null)
 
-    Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
+    Surface(
+        color = MaterialTheme.colorScheme.background,
+        modifier = Modifier.fillMaxSize().imePadding()
+    ) {
         when (initState) {
             InitState.LOADING -> {
                 FullLoading()
@@ -42,10 +46,19 @@ fun HomeScreenBig(
             InitState.REQUEST_PASSWORD -> {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Box(Modifier.widthIn(0.dp, 450.dp)) {
-                        PasswordRequest(Modifier.fillMaxWidth())
+                        PasswordRequest(
+                            Modifier.fillMaxWidth(),
+                            onNavigate = {
+                                navHostController.navigate(it)
+                            },
+                            onCheckPassword = {
+
+                            })
                     }
                 }
             }
+
+            InitState.PASSWORD_ERROR -> {}
 
             InitState.LOGGED -> HomeDashboardBig(
                 Modifier.fillMaxSize(),

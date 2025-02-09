@@ -66,7 +66,7 @@ fun ExistingAccountScreen(
                     )
             ) {
                 DisplayInfo(Modifier.fillMaxWidth(), addExistingFormStep) {
-                    // go to more info
+                    navHostController.navigate(it)
                 }
 
                 Surface(color = Color.Transparent, modifier = Modifier) {
